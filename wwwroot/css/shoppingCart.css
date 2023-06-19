@@ -1,0 +1,69 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
+
+
+
+
+
+.productcont {
+    display: flex;
+}
+
+.product {
+    padding: 1em;
+    border: 1px solid #E0E4CC;
+    margin-right: 1em;
+    border-radius: 5px;
+}
+
+.cart-container {
+    border: 1px solid #E0E4CC;
+    border-radius: 5px;
+    margin-top: 1em;
+    padding: 1em;
+}
+
+
+
+a:hover, a:focus, a:active, input[type="submit"]:hover, input[type="submit"]:focus, input[type="submit"]:active {
+    cursor: pointer;
+}
+
+table {
+    margin-bottom: 1em;
+    border-collapse: collapse;
+}
+
+    table td, table th {
+        text-align: left;
+        padding: 0.25em 1em;
+        border-bottom: 1px solid #E0E4CC;
+    }
+
+#carttotals {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.cart-buttons {
+    width: auto;
+    margin-right: 0;
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em 0;
+}
+
+#emptycart {
+    margin-right: 1em;
+}
+
+table td:nth-last-child(1) {
+    text-align: right;
+}
+
+.message {
+    border-width: 1px 0px;
+    border-style: solid;
+    padding: 0.5em 0;
+    margin: 1em 0;
+}

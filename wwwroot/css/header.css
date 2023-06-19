@@ -1,0 +1,203 @@
+/*! header start  */
+
+header {
+    border-bottom: 1px solid #dee0ea;
+    position: relative;
+}
+
+.HeaderRow {
+    height: 85px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+}
+
+.HeaderWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-mobile {
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+
+.header-center .bi-x-circle {
+    display: none;
+}
+
+.header-center .navigation .MenuList {
+    display: flex;
+    column-gap: 30px;
+    align-items: center;
+}
+
+.header-center .MenuList .List-Item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 90px;
+}
+
+.header-center .MenuList .menu-link {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    position: relative;
+}
+
+    .header-center .MenuList .menu-link::after {
+        content: "";
+        height: 1px;
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translate(-50%);
+    }
+
+.header-center .MenuList .List-Item:hover .menu-link::after {
+    width: 100%;
+}
+
+.header-center .MenuList i {
+    font-size: 13px;
+}
+
+.HeaderRight .header-right-links {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.HeaderRight .bi-person {
+    font-size: 25px;
+}
+
+.logo {
+    width: auto;
+    height: 80px;
+}
+
+
+/*? menu dropdown start  */
+.PhonePhoto {
+    width: 150px;
+    height: 150px;
+}
+
+.MenuDropdown {
+    position: absolute;
+    top: 81px;
+    left: -20px;
+    visibility: hidden;
+    z-index: 10;
+}
+
+.MenuDropdown-Content {
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #dee0ea;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+    .MenuDropdown-Content a {
+        display: flex;
+        padding: 4px 30px;
+        font-size: 17px;
+        transition: color .2s ease;
+    }
+
+
+
+.header-center .MenuList .List-Item:hover .MenuDropdown {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-dropdown-megamenu {
+    background-color: white;
+    border: 1px solid #dee0ea;
+    padding: 20px;
+    display: flex;
+    column-gap: 50px;
+}
+
+.megamenu-wrapper .MenuDropdown {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.megamenu-wrapper {
+    position: static !important;
+}
+
+    .megamenu-wrapper .megamenu-links {
+        display: flex;
+        column-gap: 50px;
+    }
+
+.megamenu-menu-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+}
+
+    .megamenu-menu-list a {
+        font-size: 17px;
+    }
+
+
+
+
+/*? menu dropdown end  */
+
+/*! header end  */
+
+/* header responsive */
+@media (max-width: 770px) {
+    .header-center {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        background-color: #fff;
+        border-right: 1px solid #dee0ea;
+        z-index: 2;
+        transition: 0.5s ease all;
+    }
+
+        .header-center .bi-x-circle {
+            display: inline-block;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .header-center .MenuList {
+            flex-direction: column;
+            padding: 50px 75px;
+        }
+
+    .header-mobile {
+        display: inline-block;
+    }
+
+    header .MenuDropdown {
+        display: none !important;
+    }
+
+    header .MenuList i {
+        display: none;
+    }
+
+    header .List-Item a {
+        font-size: 17px !important;
+    }
+}

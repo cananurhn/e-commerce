@@ -1,0 +1,410 @@
+﻿@page
+@model e_commerce.Pages.IndexModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Commerce</title>
+    <!--! Boostrap Icons CDN  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+    <script src="https://kit.fontawesome.com/f056196aea.js" crossorigin="anonymous"></script>
+            <link rel="stylesheet" href="css/input.css" />
+
+    <style type="text/css">
+        .kutu {
+            max-width: 187px;
+            height: 193px;
+            background: #f5f5f5;
+            margin: auto;
+            display: inline-flex;
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .ana {
+            margin: auto;
+            width: 100%;
+            max-width: 1148px;
+        }
+
+        .category-image{
+        width:100%;
+        height:150px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="HeaderRow">
+            <div class="container">
+                <div class="HeaderWrapper">
+                    <div class="header-mobile">
+                        <i class="bi bi-list" id="btn-menu"></i>
+                    </div>
+                    <div class="header-left">
+                        <a href="./" class="logo"> <img src="img/logobeyaz.jpg" alt=""> </a>
+                    </div>
+                    <div class="header-center" id="sidebar">
+                        <nav class="navigation">
+                            <ul class="MenuList">
+                                <!--! veri tabanından döngü ile kategori bilgilerini aldık.  -->
+                                @foreach (var category in Model.listCategories)
+                                {
+
+                                    <li class="List-Item">
+
+                                        <a href="/Products?p=@category.category_name" class="menu-link">
+                                            @category.category_name
+                                            <i class="bi bi-chevron-down"></i>
+                                        </a>
+
+                                        <div class="MenuDropdown">
+                                            <ul class="MenuDropdown-Content">
+                                                <!--! veri tabanından döngü ile alt kategori bilgilerini aldık.  -->
+                                                @foreach (var subcategory in Model.listCategories2)
+                                                {
+                                                    if (category.category_name == subcategory.category_name)
+                                                    {
+                                                        <!--! Ana kategorinin alt kategorisi eşitliği döngüden geliyorsa ekrana kategorileri yazdırdık.  -->
+                                                        <li>
+                                                            <a href="/Products?p=@subcategory.category_subcategory&id=@subcategory.category_id">@subcategory.category_subcategory</a>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </div>
+                                    </li>
+                                }
+
+
+
+                                <li class="List-Item">
+                                    <a href="/contact" class="menu-link">
+                                        Contact
+                                    </a>
+                                </li>
+
+                                <li class="List-Item">
+                                    <a href="#" class="menu-link">
+                                        <a href="/account" class="header-account">
+                                            <i style="font-size:20px;" class="bi bi-person"></i>
+                                        </a>
+                                    </a>
+                                    <div class="MenuDropdown">
+                                        <ul class="MenuDropdown-Content">
+                                            <!--! Sessiondan gelen oturum varsa if sorgusunun altındaki alanı göster yoksa gösterme dedik.(Kullanıcı girişi olmadan my orders ve logout alanları görünmez böylece.Kullanıcı girişi yapılmamışsa sadece login/sign up alanı görünür.)  -->
+                                            @if (HttpContext.Session.GetString("user_id") != null)
+                                            {
+                                                <li>
+                                                    <a style="text-transform: capitalize;" asp-page="Index" asp-page-handler="Logout" class="menu-link">
+                                                        Logout
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="Orders" style="text-transform: capitalize;" class="menu-link">
+                                                        My orders
+                                                    </a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a style="text-transform: capitalize;" href="/account" class="menu-link">
+                                                        Login/Register
+                                                    </a>
+                                                </li>
+                                            }
+
+
+                                        </ul>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </nav>
+                        <i class="bi-x-circle" id="close-sidebar"></i>
+                    </div>
+                    <div class="topnav">
+                        <div class="search-container">
+                            <form method="get" action="/search">
+                                <input type="text" placeholder="Search.." name="SearchText">
+                                <button type="submit"><i class="bi bi-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="HeaderRight">
+
+                        <div class="header-right-links">
+
+                            <a href="/shopping-cart" class="header-account">
+                                <i class="bi bi-basket"> </i><span>
+                                    <!--! menü kısmında sepet logosunun yanına sepete eklenen ürün sayısını gösterir(varsa) yoksa boş döner yani hiçbir şey yazmaz.  -->
+                                    @if (HttpContext.Session.GetString("user_id") != null)
+                                    {
+                                        <!--! Model.ShopCartCountInfoList sınıfından gelen sepet sorgusunu döngü ie ekrana yazdırır.  -->
+                                        @foreach (var shop in Model.ShopCartCountInfoList)
+                                        {
+                                            @shop.number
+                                        }
+                                    }
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--! : Model.Username : -->
+     <!--!  <a asp-page="account" asp-page-handler="Logout" href="#">Logout</a>-->
+    <section class="slider">
+        <div class="slider-item">
+            <div class="SliderImages">
+                <img src="img/slider/h1.jpg" class="imgSlide" alt="">
+            </div>
+            <div class="container">
+                <h2 class="slider-heading">Decoration</h2>
+
+                <a href="Products?p=Decoration" class="btn btn-lg btn-primary">Explore Now</a>
+            </div>
+        </div>
+        <div class="slider-item">
+            <div class="SliderImages">
+                <img src="img/slider/h2.jpg" class="imgSlide" alt="">
+            </div>
+            <div class="container">
+                <h2 class="slider-heading">
+                    Hand-Knitted
+                </h2>
+                <a href="Products?p=Hand-Knitted" class="btn btn-lg btn-primary">Explore Now</a>
+            </div>
+        </div>
+        <div class="slider-item">
+            <div class="SliderImages">
+                <img src="img/slider/h3.jpg" class="imgSlide" alt="">
+            </div>
+            <div class="container">
+                <h2 class="slider-heading">Natural Stone</h2>
+                <a href="Products?p=Charms" class="btn btn-lg btn-primary">Explore Now</a>
+            </div>
+        </div>
+        <div class="slider-buttons">
+            <button onclick="plusSlide(-1)">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button onclick="plusSlide(1)">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="slider-dots">
+            <button class="slider-dot active" onclick="currentSlide(1)">
+                <span></span>
+            </button>
+            <button class="slider-dot" onclick="currentSlide(2)">
+                <span></span>
+            </button>
+            <button class="slider-dot" onclick="currentSlide(3)">
+                <span></span>
+            </button>
+        </div>
+
+    </section>
+    <!--! slider end   -->
+    <!--! categories start  -->
+    <section class="categories">
+            <div class="CatergoriesTitle" style="width:100%; height:50px;">
+                <h2>All Categories</h2>
+            <p>Handmade designs Of Your Choice</p>
+            </div>
+
+        <div class="ana BackgroundTitle">
+
+                @foreach (var subcategory in Model.listCategories2)
+            {
+                    <!--! sistemimizde kayıtlı tüm alt kategorileri listeledik döngü ile.  -->
+
+                    <div class="kutu">
+                        <a href="/Products?p=@subcategory.category_subcategory&id=@subcategory.category_id">
+                            <img src="~/imgUploads/@subcategory.category_img" alt="" class="category-image">
+                            <span class="category-title">@subcategory.category_subcategory</span>
+                        </a>
+                    </div>
+                }
+
+        </div>
+    </section>
+
+    <div class="BackgroundTitle">
+        <h2>Change Background Color</h2>
+        <p>Handmade designs Of Your Choice</p>
+    </div>
+    <div class="colorBar">
+        <div onclick="changeColor('colorGrey')" class="grey box">
+            <a id="colorGrey">#95a5a6</a>
+        </div>
+        <div onclick="changeColor('colorYellow')" class="yellow box">
+            <a id="colorYellow">#f1c40f</a>
+        </div>
+        <div onclick="changeColor('colorOrange')" class="orange box">
+            <a id="colorOrange">#FF7806</a>
+        </div>
+        <div onclick="changeColor('colorGreen')" class="green box">
+            <a id="colorGreen">#9DFF61</a>
+        </div>
+        <div onclick="changeColor('colorAqua')" class="aqua box">
+            <a id="colorAqua">#00ffff</a>
+        </div>
+    </div>
+    <script>
+        function changeColor(id) {
+            document.body.style.background = document.getElementById(id).innerHTML;
+
+        }
+    </script>
+    <!--! background color end   -->
+    <!--! footer start  -->
+    <footer class="footer">
+        <div class="footerOne">
+            <div class="container">
+                <div class="widgets">
+                    <div class="brand">
+                        <div class="footerLogo">
+                            <a href="Index" class="logo"> <img src="img/logoyesil.jpg" alt=""> </a>
+                        </div>
+                        <div class="footerParagraph">
+                            <!--! text size start  -->
+                            <div class="textSize">
+                                <div class="buttons">
+                                    <button type="button" class="button active" onclick="fontchange(18)">A</button>
+                                    <button type="button" class="button" onclick="fontchange(23)">A</button>
+                                    <button type="button" class="button" onclick="fontchange(27)">A</button>
+                                </div>
+                                <div class="text">
+                                    <p id="para">
+                                        Download our application and take advantage of discounts.
+                                        You can also follow us on social media and be informed about discounts
+                                    </p>
+
+
+                                </div>
+                            </div>
+                            <script>
+                                function fontchange(n) {
+                                    var paragraph = document.getElementById('para');
+                                    paragraph.style.fontSize = n + "px";
+                                }
+                                var buttons = document.querySelector(".buttons");
+                                var button = buttons.querySelectorAll(".button");
+                                for (var i = 0; i < button.length; i++) {
+                                    button[i].addEventListener('click', function () {
+                                        var current = document.getElementsByClassName('active');
+                                        current[0].className = current[0].className.replace("active", "");
+                                        this.className += " active"
+                                    })
+                                }
+                            </script>
+
+                            <!--! text size end  -->
+                        </div>
+                        <div class="footer-contact">
+                            <p>
+                                <a href="tel:555 555 55 55">(+44) 0 7517408796</a> -- <a href="mailto:ozentech@hotmail.com">chd@hotmail.com</a>
+                            </p>
+                            <div class="download-app">
+                                <a href="https://www.apple.com/uk/app-store/">
+                                    <img src="img/footer/app-store.png" alt="">
+                                </a>
+                                <a href="https://play.google.com/store/games?hl=en_GB&gl=US&pli=1">
+                                    <img src="img/footer/google-play.png" alt="">
+                                </a>
+                            </div>
+                            <div class="SocialMedia">
+                                <h3>Follow Us</h3>
+                                <a href="https://www.facebook.com/"><i class="fa-brands fa-square-facebook"></i></a>
+                                <a href="https://twitter.com/i/flow/login"><i class="fa-brands fa-square-twitter"></i></a>
+                                <a href="https://www.instagram.com/"><i class="fa-brands fa-square-instagram"></i></a>
+                                <a href="#https://www.youtube.com/"><i class="fa-brands fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigationMenu">
+                        <h4>Information</h4>
+                        <ul class="menu-list">
+                            <li>
+                                <a href="contact">About Us</a>
+                            </li>
+                            <li>
+                                <a href="https://en.wikipedia.org/wiki/Privacy_policy">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="https://en.wikipedia.org/wiki/Returns_Policy">Returns Policy</a>
+                            </li>
+                            <li>
+                                <a href="https://en.wikipedia.org/wiki/Shopping_policy">Shipping Policy</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navigationMenu">
+                        <h4>Account</h4>
+                        <ul class="menu-list">
+                            <li>
+                                <a href="account">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="account">Account Details</a>
+                            </li>
+                            <li>
+                                <a href="contact">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navigationMenu">
+                        <h4>Categories</h4>
+                        <ul class="menu-list">
+                            @foreach (var category in Model.listCategories){
+
+                            <li>
+                                    <a href="/Products?p=@category.category_name">@category.category_name</a>
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="CopyRight">
+                <div class="container">
+                    <div class="CopyRightOne">
+                        <div class="site-copyright">
+                            <p>
+                                Copyright 2023 © Creative Handmade Designs. All right reserved.
+                            </p>
+                        </div>
+                        <div class="footer-menu">
+                            <ul class="footer-menu-list">
+                                <li class="list-item">
+                                    <a href="https://en.wikipedia.org/wiki/Privacy_policy">Privacy Policy</a>
+                                </li>
+                                <li class="list-item">
+                                    <a href="https://en.wikipedia.org/wiki/Contractual_term">Terms and Conditions</a>
+                                </li>
+                                <li class="list-item">
+                                    <a href="https://en.wikipedia.org/wiki/Returns_Policy">Returns Policy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--! footer end  -->
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+  /*! widgets start  */
+
+  .footer .footer-contact-bottom .download-app {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+  .fa-brands{
+    font-size: 30px;
+    width: 30px;
+  }
+  
+  .footerOne {
+    padding-top: 30px ;
+    border-bottom: 1px solid #dee0ea;
+    background-color: #BCCDD3 ;
+  }
+  
+  .footerOne .widgets {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .footerOne .widgets > div {
+    flex: 1px;
+  }
+  
+  .footerOne .widgets > .brand {
+    flex: 3;
+  }
+
+  .widgets .brand .footerParagraph {
+    width: 400px;
+    font-size: 15px;
+    margin: 20px 0;
+  }
+  
+  .widgets .brand .footer-contact {
+    font-size: 17px;
+  }
+  
+  .widgets .navigationMenu h4 {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  
+  .widgets .navigationMenu ul {
+    margin-top: 20px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+  
+  /*! widgets end  */
+  
+  /*! copyright start  */
+  
+  .CopyRight{
+    background-color: #BCCDD3 ;
+  }
+
+  .CopyRightOne {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    
+    
+  }
+  .CopyRightOne .site-copyright {
+    font-size: 13px;
+    margin-right: 10px;
+  }
+  
+  .CopyRightOne .footer-menu {
+    margin-left: auto;
+  }
+  
+  .CopyRightOne .footer-menu-list {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    column-gap: 7px;
+  }
+  
+  .CopyRightOne .footer-menu-list .list-item:not(:last-child) {
+    padding-right: 10px;
+    border-right: 1px solid #929395;
+  }
+  /*! copyright end  */
+  
+  /*! responsive  */
+  
+  @media (max-width: 768px) {
+    .footer .brand {
+      margin-bottom: 20px;
+    }
+  
+    .widgets .brand .footerParagraph {
+      width: unset;
+    }
+  
+    .footerOne .widgets > div {
+      flex: unset !important;
+    }
+  
+    .footer .brand {
+      margin-bottom: 20px;
+    }
+  
+    .footer-copyright {
+      flex-direction: column;
+      text-align: center;
+      row-gap: 10px;
+    }
+  
+    .footer-copyright .footer-menu {
+      margin-left: unset;
+    }
+  }
